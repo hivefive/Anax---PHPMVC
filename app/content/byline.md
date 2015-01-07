@@ -1,0 +1,1 @@
+Christoffer studerar på Karlstad Universitet, där han under h-terminen 2014 har en fri-termin. Då valde han att gå kurspaketet på BTH, vilket den här sidan är ett, rätt så, direkt resultat av.

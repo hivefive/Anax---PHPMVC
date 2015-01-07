@@ -1,0 +1,30 @@
+td {
+	padding: 0.8em;
+}
+
+tr {
+	color: #2D2D2D;
+	width: 100%;
+}
+
+tr:hover {
+	background-color: #EFEFEF;
+	color: #000000;
+}
+
+tbody {
+	width: 100%;
+}
+
+table.userTable {
+	width: 95%;
+	background-color: #F5F5F5;
+}
+
+tr.options {
+	border-bottom: 1px solid black;
+}
+
+.resetUsers {
+	border: 2px solid black;
+}

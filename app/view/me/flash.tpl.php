@@ -1,0 +1,1 @@
+<div class="<?=$flash['type']?>"><p><?=$flash['message']?></p></div>

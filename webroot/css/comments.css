@@ -1,0 +1,23 @@
+.comments {
+	background-color: #F7F7F7;
+	margin-left: 4%;
+	padding: 3%;
+	font-size: 0.8em;
+	margin-bottom: 1.8em;
+}
+
+.buttonsComment {
+	clear: both;
+	margin: 10px 0;
+}
+
+.commentContent {
+	font-size: 1.4em;
+	padding-top: 10px;
+	width: 60%;
+}
+
+.nameComment {
+	margin: 0 10px;
+}
+

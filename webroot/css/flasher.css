@@ -1,0 +1,29 @@
+.info {
+	background-color: #BAF5FF;
+	border: 4px dashed #0C4C56;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.error {
+	background-color: #FF7272;
+	border: 4px dashed #9B0000;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.success {
+	background-color: #B7FF93;
+	border: 4px dashed #4E9929;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.warning {
+	background-color: #FFCE5E;
+	border: 4px dashed #CE7F00;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+
