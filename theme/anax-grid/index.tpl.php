@@ -12,6 +12,11 @@
 </head>
 
 <body class='<?php if(isset($class4body)){ echo $class4body; } ?>'>
+<div id='top'>
+<?php if(isset($top)) echo $top?>
+<?php $this->views->render('top')?>
+</div>
+
 
 <div class='<?php if(isset($class4wrapper)){ echo $class4wrapper; } ?>' id='wrapper'>
 

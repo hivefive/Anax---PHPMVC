@@ -12,10 +12,13 @@
 </head>
 
 <body>
-<div class='above'><a href=''>Login</a></div>
+<div id='top'>
+<?php if(isset($top)) echo $top?>
+<?php $this->views->render('top')?>
+</div>
 
 <div class='<?php if(isset($class4wrapper)){ echo $class4wrapper; } ?>' id='wrapper'>
-
+	
 	<div id='header'>
 	<?php if(isset($header)) echo $header?>
 	<?php $this->views->render('header')?>

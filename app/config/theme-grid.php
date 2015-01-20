@@ -61,6 +61,12 @@ return [
     ],
 	
 	'views' => [
+		
+		['region' => 'top',
+		'template' => 'me/top',
+			'data' => [],
+			'sort' => -1
+		],
 		[
 			'region'   => 'header', 
 			'template' => 'me/header', 

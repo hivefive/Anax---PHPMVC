@@ -237,4 +237,56 @@ public function delete($id)
  
     return $this->db->execute([$id]);
 }
+
+public function orderBy($condition)
+    {
+        $this->db->orderBy($condition);
+     
+        return $this;
+    }
+
+public function groupBy($column)
+    {
+        $this->db->groupBy($column);
+     
+        return $this;
+    }
+
+/**
+ * Build the LIMIT by part.
+ *
+ * @param string $condition for building the LIMIT part of the query.
+ *
+ * @return $this
+ */
+public function limit($condition)
+    {
+        $this->db->limit($condition);
+
+        return $this;
+}
+
+
+public function findAcronym($acronym)
+	{
+		$this->db->select()
+			->from($this->getSource())
+			->where("acronym = ?");
+		$this->db->execute([$acronym]);
+		
+		return $this->db->fetchInto($this);
+	}
+
+public function login($acronym)
+	{
+		$this->db->select()
+			->from($this->getSource())
+			->where("acronym = ?");
+			//->andWhere('password = ?');
+			$this->db->execute([$acronym]);
+			$res = $this->db->fetchInto($this);
+		return $res;
+
+	}
+
 }

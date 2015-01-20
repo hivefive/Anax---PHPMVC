@@ -8,8 +8,12 @@ namespace Anax\Users;
  */
 class UsersController implements \Anax\DI\IInjectionAware
 {
-    use \Anax\DI\TInjectable;
+    use \Anax\DI\TInjectable,
+		\Anax\MVC\TRedirectHelpers;
     
+	
+		public $users;
+		public $session;
     
     /**
      * Initialize the controller.
@@ -18,8 +22,9 @@ class UsersController implements \Anax\DI\IInjectionAware
      */
     public function initialize()
     {
-        $this->users = new \Anax\Users\User();
-        $this->users->setDI($this->di);
+        $this->session = new \Anax\Session\CSession();
+		$this->users = new \Anax\Users\User();
+		$this->users->setDI($this->di); 
     }
     
     /**
@@ -42,6 +47,7 @@ class UsersController implements \Anax\DI\IInjectionAware
                 'updated' => ['datetime'],
                 'deleted' => ['datetime'],
                 'active' => ['datetime'],
+				'count_loggedin' => ['integer'],
             ]
         )->execute();
         
@@ -145,22 +151,15 @@ class UsersController implements \Anax\DI\IInjectionAware
      * @return void
      */
     public function idAction($id = null)
-    {
-        if (!isset($id)) {
-            die("Missing id");
-        }
-        //$this->users = new \Anax\Users\User();
-        //$this->users->setDI($this->di);
-     
-        $user = $this->users->find($id);
-     
-        $this->theme->setTitle("View user with id");
-        $this->views->add('users/view', [
-            'title' => 'vy över ' . $user->acronym,
-            'user' => $user,
-        ]);
-    }
-    
+	{
+		$this->users = new \Anax\Users\User();
+		$this->users->setDI($this->di);
+		$user = $this->users->find($id);
+		$this->theme->setTitle("View user with id");
+		$this->views->add('users/profile', [
+		'user' => $user,
+		]);
+	}
     /**
      * Delete user.
      *
@@ -364,4 +363,78 @@ class UsersController implements \Anax\DI\IInjectionAware
         $url = $this->session->get("listUrl");
         $this->response->redirect($url);
     }
+	
+	public function mostactiveAction () 
+	{
+	
+	
+	}
+	
+	/**
+	* Authenticate and login user
+	*
+	* return void
+	*/
+	public function loginAction () 
+	{
+		$this->di->theme->setTitle('Login');
+
+		
+		$form = new \Anax\Users\CFormLogin($this->users);
+		$form->setDI($this->di);
+		$form->check(); 
+		
+		
+        // Prepare the page content
+        $this->theme->setTitle("Login");
+        $this->views->add('users/login', [
+            'content' => $form->getHTML(),
+        ]);
+		
+		
+
+			
+		
+	}
+	
+	/**
+	* Logout user
+	*
+	* return void
+	*/
+	public function logoutAction () 
+	{
+		if($this->di->session->get('userId') != null) {
+            $this->di->session->set('userId', null);
+        }
+        $this->redirectTo(''); 
+	}
+	
+	 public function profileAction($id)
+	 {
+		if (!isset($id)) {
+			die("Missing id");
+			}
+				$user = $this->users->find($id);
+				
+				if($id == $this->di->session->get('userId')){
+					$form = new \Anax\Users\CFormUser($this->users, $user);
+					$form->setDI($this->di);
+					$form->check();
+
+					$this->di->theme->setTitle("Profil");
+					$this->di->views->add('users/profile', [
+					'title' => "Profile",
+					'user' => $user,
+					'content' => $form->getHTML(),
+					'questions' => $questions,
+					'answers' => $answers,
+					'comments' => $comments,
+					'pageId' => "users/profile/". $id,
+			]);
+		}
+		else{
+		header("Location: ../login");
+		}
+	}
 }
