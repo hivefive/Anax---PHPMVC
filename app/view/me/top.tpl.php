@@ -1,9 +1,10 @@
-<?php if($this->di->session->get('userId')): ?>
-<a href="<?=$this->url->create('logout')?>">Logout |</a>
 <?php $id = $this->di->session->get('userId');?>
-<a href="<?=$this->url->create('users/profile/'.$id)?>">Profile </a>
+<p class="loginMenu right"><a href="<?=$this->url->create('users/profile/'.$id)?>">Profile | </a>
+<?php if($this->di->session->get('userId')): ?>
+<a href="<?=$this->url->create('logout')?>">Logout</a>
+</p>
 <?php endif; ?>
 <?php if(!$this->di->session->get('userId')) : ?>
-<a href="<?=$this->url->create('login')?>">Login |</a>
-<a href="<?=$this->url->create('users/add')?>">Register</a>
+<p class="loginMenu right"><a href="<?=$this->url->create('users/add')?>">Register | </a><a href="<?=$this->url->create('login')?>">Login</a>
+</p>
 <?php endif; ?>

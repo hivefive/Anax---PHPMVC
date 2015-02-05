@@ -26,6 +26,7 @@ class CFormLogin extends \Mos\HTMLForm\CForm
 			'label' => 'Username:',
 			'required' => true,
 			'validation' => ['not_empty'],
+			'autofocus' => true,
 			'value' => isset($user) ? $user->acronym : '',
 			],
 			'password' => [
@@ -66,13 +67,15 @@ public function callbackSubmit()
 			$password = $this->Value('password');
 			if(password_verify($password, $DBpassword)){
 				$user = $this->users->find($user->id);
-				$this->session->set('userId', $user->id );
+				$this->session->set('userId', $user->id);
+				$this->session->set('email', $user->email);
+				$this->session->set('acronym', $user->acronym);
 				$now = gmdate('Y-m-d H:i:s');
-				$count = $user->count_loggedin;
+				$count = $user->timesLoggedOn;
 				$count += 1;
 				$this->users->save([
 				'active' => $now,
-				'count_loggedin' => $count,
+				'timesLoggedOn' => $count,
 				]);
 				$this->redirectTo('users/profile/'. $user->id);				//users/profile
 			}

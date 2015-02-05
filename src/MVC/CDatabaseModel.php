@@ -288,5 +288,43 @@ public function login($acronym)
 		return $res;
 
 	}
-
+	
+public function count_loggedin() 
+	{
+		$this->db->select()
+			->orderBy("timesLoggedOn")
+			->from($this->getSource())
+			->limit(3);
+			$this->db->execute();
+			$res = $this->db->fetchInto($this);
+		return $res;
+	}
+	
+public function getUserQuestions($id){
+		$this->db->select()
+		->from('question')
+		->where('userID = ?')
+		->execute([$id]);
+		$res = $this->db->fetchInto($this);
+		return $res;
+	}
+	
+public function getUserAnswers($user){
+		$this->db->select()
+		->from('answer')
+		->where('user = ?')
+		->execute([$user]);
+		$res = $this->db->fetchInto($this);
+		return $res;
+	}
+	
+public function getUserComments($user) {
+		$this->db->select()
+		->from('comments')
+		->where('user = ?')
+		->execute([$user]);
+		$res = $this->db->fetchInto($this);
+		return $res;
+	}
+	
 }

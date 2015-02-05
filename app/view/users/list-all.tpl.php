@@ -14,7 +14,7 @@ $this->session->set("listUrl",$currentUrl);
 	<td><a href='<?=$this->url->create('users/listInActive')?>'>Visa inaktiva användare</a></td>
 	<td><a href='<?=$this->url->create('users/listSoftDeleted')?>'>Visa soft-raderade</a></td>
 	<td><a href='<?=$this->url->create('users/listNotSoftDeleted')?>'>Visa icke soft-raderade</a></td>
-	<td><a href='<?=$this->url->create('users/showCreateForm')?>'>Lägg till ny användare</a></td>
+	<td><a href='<?=$this->url->create('users/add')?>'>Lägg till ny användare</a></td>
 </tr>
 <tr>
 	<th>Username</th>
@@ -31,7 +31,7 @@ $this->session->set("listUrl",$currentUrl);
 
 <?$user->getProperties()?>
 <tr>
-	<td><a href='<?=$this->url->create('users/Update')?>/<?=$user->id?>'><?=htmlentities($user->acronym)?></a></td>
+	<td><a href="<?=$this->url->create('users/id/' . $user->id) ?>"><?=$user->acronym?></a></td>
 	<td><?=htmlentities($user->email)?></td>
 	<td><?=htmlentities($user->name)?></td>
 	<td><?=htmlentities($user->created)?></td>

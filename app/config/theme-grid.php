@@ -16,15 +16,6 @@ return [
 		'name' => 'anax-grid',
 	],
 
-    
-    /** 
-     * Add default views.
-     */
-    'views' => [
-        ['region' => 'header', 'template' => 'welcome/header', 'data' => [], 'sort' => -1],
-        ['region' => 'footer', 'template' => 'welcome/footer', 'data' => [], 'sort' => -1],
-    ],
-
 
     /** 
      * Data to extract and send as variables to the main template file.

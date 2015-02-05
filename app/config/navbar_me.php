@@ -26,10 +26,10 @@ return [
 			
 		
         // This is a menu item
-        'source' => [
-            'text'  =>'<i class="fa fa-cogs"></i> Source',
-            'url'   => 'source',
-            'title' => 'Source'
+        'ask' => [
+            'text'  =>'<i class="fa fa-comments"></i> Ask a question',
+            'url'   => 'ask',
+            'title' => 'Ask a question'
         ],
 		
 		

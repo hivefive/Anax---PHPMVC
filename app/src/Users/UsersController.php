@@ -47,7 +47,7 @@ class UsersController implements \Anax\DI\IInjectionAware
                 'updated' => ['datetime'],
                 'deleted' => ['datetime'],
                 'active' => ['datetime'],
-				'count_loggedin' => ['integer'],
+				'timesLoggedOn' => ['integer'],
             ]
         )->execute();
         
@@ -106,25 +106,16 @@ class UsersController implements \Anax\DI\IInjectionAware
      *
      * @return void
      */
-    public function addAction($acronym = null, $password)
+    public function addAction($acronym = null)
     {
-        if (!isset($acronym)) {
-            die("Missing acronym");
-        }
-     
-        $now = date(DATE_RFC2822);
-		$password = password_hash($password, PASSWORD_DEFAULT);
-        $this->users->save([
-            'acronym' => $acronym,
-            'email' => $acronym . '@mail.se',
-            'name' => 'Mr/Mrs ' . $acronym,
-            'password' => $password,
-            'created' => $now,
-            'active' => $now,
-        ]);
-        
-        $url = $this->url->create('user');
-        $this->response->redirect($url);
+        $form = new \Anax\Users\CFormUser($this->users);
+		$form->setDI($this->di);
+		$form->check();
+		$this->di->theme->setTitle("Add user");
+		$this->di->views->add('default/page', [
+		'title' => "Add user",
+		'content' => $form->getHTML()
+		]); 
     }
     
     /**
@@ -386,7 +377,7 @@ class UsersController implements \Anax\DI\IInjectionAware
 		
 		
         // Prepare the page content
-        $this->theme->setTitle("Login");
+
         $this->views->add('users/login', [
             'content' => $form->getHTML(),
         ]);
@@ -406,6 +397,8 @@ class UsersController implements \Anax\DI\IInjectionAware
 	{
 		if($this->di->session->get('userId') != null) {
             $this->di->session->set('userId', null);
+			$this->di->session->set('email', null);
+			$this->di->session->set('acronym', null);
         }
         $this->redirectTo(''); 
 	}
@@ -427,14 +420,24 @@ class UsersController implements \Anax\DI\IInjectionAware
 					'title' => "Profile",
 					'user' => $user,
 					'content' => $form->getHTML(),
-					'questions' => $questions,
-					'answers' => $answers,
-					'comments' => $comments,
+					'questions' => $this->users->getUserQuestions($id),
+					'answers' => $this->users->getUserAnswers($user->acronym),
+					'comments' => $this->users->getUserComments($user->acronym),
 					'pageId' => "users/profile/". $id,
-			]);
+				]);
 		}
 		else{
-		header("Location: ../login");
+		header("Location: ../login/");
 		}
 	}
+	
+	 public function firstPageAction() 
+	 {
+		$mostActive = $this->users->getMostLoggedOn();
+		$this->views->add('users/mostactive', [
+		'mostActive' => $mostActive,
+		], 'sidebar');
+	}
+	
+	
 }

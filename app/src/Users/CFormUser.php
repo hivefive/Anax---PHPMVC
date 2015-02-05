@@ -77,7 +77,7 @@ class CFormUser extends \Mos\HTMLForm\CForm
 			'created' => $now,
 			'active' => $now,
 		]);
-	$this->redirectTo('login');
+	$this->redirectTo('users/profile/'. $user->id);
 	return true;
 	}
 	/**
@@ -88,7 +88,7 @@ class CFormUser extends \Mos\HTMLForm\CForm
 	{
 		//$url = $this->url->create('users/id/' . $this->users->id);
 		//$this->response->redirect($url);
-		$this->redirectTo('login');
+		$this->redirectTo('');
 	}
 	/**
 	* Callback What to do when form could not be processed?
