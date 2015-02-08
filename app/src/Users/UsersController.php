@@ -160,9 +160,20 @@ class UsersController implements \Anax\DI\IInjectionAware
      */
     public function deleteAction($id = null)
     {
-        if (!isset($id)) {
-            die("Missing id");
-        }
+        if (!isset($_SESSION['userId'])) {
+			$this->theme->setTitle("Login");
+			$this->views->add('users/notLoggedIn', [
+			'content' => '<h1>Register or login</h1>',
+			]);
+			return;
+			if ($_SESSION['userId'] != 6){
+				$this->theme->setTitle("Login");
+				$this->views->add('users/notLoggedIn', [
+				'content' => '<h1>Register or login</h1>',
+				]);
+				die("You're not an admin'");
+				}
+			}
      
         $res = $this->users->delete($id);
      
@@ -286,11 +297,13 @@ class UsersController implements \Anax\DI\IInjectionAware
      */
     public function updateAction($id = null)
     {
-        if (!isset($id)) {
-            die("Missing id");
-        }
-        /*$this->users = new \Anax\Users\User();
-        $this->users->setDI($this->di);*/
+        if (!isset($_SESSION['userId'])) {
+			$this->theme->setTitle("Login");
+			$this->views->add('users/notLoggedIn', [
+			'content' => '<h1>Register or login</h1>',
+			]);
+			return;
+			}
         $user = $this->users->find($id);
         
         $this->di->session();
@@ -355,11 +368,8 @@ class UsersController implements \Anax\DI\IInjectionAware
         $this->response->redirect($url);
     }
 	
-	public function mostactiveAction () 
-	{
-	
-	
-	}
+
+
 	
 	/**
 	* Authenticate and login user
@@ -403,9 +413,34 @@ class UsersController implements \Anax\DI\IInjectionAware
         $this->redirectTo(''); 
 	}
 	
-	 public function profileAction($id)
+	/**
+     * List user with id.
+     *
+     * @param int $id of user to display
+     *
+     * @return void
+     */
+	 public function profileAction($id = null)
 	 {
-		if (!isset($id)) {
+		
+
+        $user = $this->users->find($id);
+        $questions = $user->getQuestions($user->acronym);
+        $this->theme->setTitle($user->acronym);
+        $answers = $user->getAnswers($user->acronym);
+        $answeredQuestions = $user->linkAnswerToQuestion($user->acronym);
+        $loggedOn = $user->isAuthenticated($user);
+
+        $this->views->add('users/view', [
+            'user' => $user,
+            'loggedOn' => $loggedOn,
+            'questions' => $questions,
+            'answers' => $answers,
+            'answeredQuestions' => $answeredQuestions,
+        ]);
+    
+	 
+		/*if (!isset($id)) {
 			die("Missing id");
 			}
 				$user = $this->users->find($id);
@@ -420,15 +455,15 @@ class UsersController implements \Anax\DI\IInjectionAware
 					'title' => "Profile",
 					'user' => $user,
 					'content' => $form->getHTML(),
-					'questions' => $this->users->getUserQuestions($id),
-					'answers' => $this->users->getUserAnswers($user->acronym),
-					'comments' => $this->users->getUserComments($user->acronym),
+					'questions' => $this->users->getUserQuestions($_SESSION['acronym']),
+					'answers' => $this->users->getUserAnswers($_SESSION['acronym']),
+					'comments' => $this->users->getUserComments($_SESSION['acronym']),
 					'pageId' => "users/profile/". $id,
 				]);
 		}
 		else{
 		header("Location: ../login/");
-		}
+		}*/
 	}
 	
 	 public function firstPageAction() 

@@ -1,6 +1,6 @@
+<?php if($this->di->session->get('userId')): ?>
 <?php $id = $this->di->session->get('userId');?>
 <p class="loginMenu right"><a href="<?=$this->url->create('users/profile/'.$id)?>">Profile | </a>
-<?php if($this->di->session->get('userId')): ?>
 <a href="<?=$this->url->create('logout')?>">Logout</a>
 </p>
 <?php endif; ?>

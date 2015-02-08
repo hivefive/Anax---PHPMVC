@@ -1,6 +1,6 @@
 <h2 class="frontheading"><a href="<?=$this->url->create('questions/add') ?>">Ask a question</a></h2>
 </aside>
-<h1>All questions</h1>
+<h1>Questions</h1>
 <?php if (is_array($question)) : ?>
 <div class="sort">
 Sort by:

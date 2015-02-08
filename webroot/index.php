@@ -33,6 +33,12 @@ $controller->setDI($di);
 return $controller;
 });
 
+$di->set('TagsController', function() use ($di) {
+$controller = new \Anax\Tags\TagsController();
+$controller->setDI($di);
+return $controller;
+});
+
 $di->set('flasher', '\Hivefive\CFlasher\CFlasher');
 
 $app->theme->configure(ANAX_APP_PATH . 'config/theme-grid.php');
@@ -97,6 +103,16 @@ $app->router->add('ask', function() use ($app) {
     $questions = $app->dispatcher->forward([
         'controller' => 'questions',
         'action'     => 'view',
+		]);
+		
+
+}); 
+
+$app->router->add('tags', function() use ($app) {
+    
+    $questions = $app->dispatcher->forward([
+        'controller' => 'tags',
+        'action'     => 'list',
 		]);
 		
 

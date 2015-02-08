@@ -1,11 +1,10 @@
-<h2 class="frontheading"><a href="<?=$this->url->create('question/answer/' . $question->id) ?>">Answer the question</a></h2>
+<h2 class="frontheading"><a href="<?=$this->url->create('questions/answer/' . $question->id) ?>">Answer the question</a></h2>
 <?php if (isset($question)): ?>
 <h1>Fråga: <?=$question->title ?></h1>
 <div class="question">
 <div class="profile right">
 <?php $gravatar = 'http://www.gravatar.com/avatar/' . md5(strtolower(trim($question->mail))) . '.jpg?s=50'; ?>
-<p class="right"><a href="<?=$this->url->create('users/profile/' . $id) ?>"><?=$question->name?></a>
-<a href=<?= $question->mail ?>><i class="fa fa-envelope-o"></i></a></p>
+<p class="right"><?=$question->name?></p>
 <img class="gravatar" src=<?=$gravatar ?>>
 </div>
 <p><?=$question->question ?></p>
@@ -34,7 +33,7 @@ $tags = explode("\n", str_replace(' ', '', $question->tags));
 <br>
 <br>
 <br>
-<a class="right" href="<?=$this->url->create('questions/comment/' . $id) ?>">Comment</a>
+<a class="right" href="<?=$this->url->create('questions/comment/' . $id) ?>"><h3 class="frontheading">Comment</h3></a>
 </div>
 <!-- -------------------------------------------------- COMMENTS ---------------------------------------------------- -->
 <div class="comments">
@@ -74,9 +73,9 @@ $color = "red";
 <a class="left" href="<?=$this->url->create('questions/downVoteCommentOnQuestion/' . $comment->commentID . '/' . $comment->id) ?>"><i style="color: red;" class="fa fa-chevron-down red"></i></a></p>
 </div>
 <?php $realComment = strip_tags($comment->comment, '<a><i><b><strong><em>'); ?>
-<?php $gravatar = 'http://www.gravatar.com/avatar/' . md5(strtolower(trim($commentatorMail))) . '.jpg?s=17'; ?>
+<?php $gravatar = 'http://www.gravatar.com/avatar/' . md5(strtolower(trim($commentatorMail))) . 'jpg?s=17'; ?>
 <div class="comment">
-<p><img class="gravatar" src=<?=$gravatar ?>> <?=$realComment; ?> -<span class="timestamp"><?=$date ?></span></p>
+<p><img class="gravatar" src=<?=$gravatar ?>> <?=$realComment; ?> -<span class="timestamp"><?=$date ?></span><p>- <?=$comment->user?></p></p>
 </div>
 <?php endforeach; ?>
 <?php endif; ?>
@@ -123,8 +122,8 @@ $contributorMail = $contributor->email;
 <div class="answer">
 <div class="profile right">
 <?php $gravatar = 'http://www.gravatar.com/avatar/' . md5(strtolower(trim($contributorMail))) . '.jpg?s=50'; ?>
-<p class="right"><a href="<?=$this->url->create('users/id/' . $contributorId) ?>"><?=$contributorName?></a>
-<a href=<?= $contributorMail ?>><i class="fa fa-envelope-o"></i></a></p>
+<p class="right"><a href="<?=$this->url->create('users/profile/' . $contributorId) ?>"><?=$contributorName?></a>
+</p>
 <img class="gravatar" src=<?=$gravatar ?>>
 </div>
 <?php if(isset($hasAcceptedAnswer) && $hasAcceptedAnswer[1] == $thisId): ?>

@@ -19,8 +19,21 @@ class TagsController implements \Anax\DI\IInjectionAware
      */
     public function initialize()
     {
-        $this->comments = new \Anax\Tags\Tag();
-        $this->comments->setDI($this->di);
+        $this->tags = new \Anax\Tags\Tag();
+        $this->tags->setDI($this->di);
 	}
+	
+	public function listAction() {
+        $this->theme->setTitle("All tags");
+        $list = array();
+        $allTags = $this->tags->getAllTags();
+        foreach($allTags as $tag) {
+          array_push($list, $tag->tag);
+        }
+
+        $this->views->add('tags/list-all', [
+          'tags' => $list,
+        ]);
+      }
 	
 }

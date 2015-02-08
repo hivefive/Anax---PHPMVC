@@ -15,7 +15,7 @@ return [
         'home'  => [
             'text'  => '<i class="fa fa-leaf"></i> Home',
             'url'   => '',
-            'title' => 'Om mig'
+            'title' => 'Home'
         ],
 		
 		
@@ -24,12 +24,16 @@ return [
 			'url' => 'user',
 			'title' => 'Users'],
 			
-		
-        // This is a menu item
         'ask' => [
             'text'  =>'<i class="fa fa-comments"></i> Ask a question',
             'url'   => 'ask',
             'title' => 'Ask a question'
+        ],
+		
+		'tags' => [
+            'text'  =>'<i class="fa fa-bookmark"></i> All tags',
+            'url'   => 'tags',
+            'title' => 'All tags'
         ],
 		
 		

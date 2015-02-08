@@ -26,7 +26,7 @@ return [
         'lang' => 'sv',
 
         // Append this value to each <title>
-        'title_append' => ' | Anax a web template',
+        'title_append' => ' | Designtalk',
 
         // Stylesheets
 		//'stylesheets' => ['css/style.css', 'css/navbar_me.css'],
@@ -62,8 +62,8 @@ return [
 			'region'   => 'header', 
 			'template' => 'me/header', 
 			'data'     => [
-				'siteTitle' => "Min me-sida i PHPMVC",
-				'siteTagline' => "Här är en tagline som inte säger dig någonting",
+				'siteTitle' => "A designers forum",
+				'siteTagline' => "Where every design can be questioned or praised",
 				'sitelogo' => "img/deus.png",
 			], 
 			'sort'     => -1

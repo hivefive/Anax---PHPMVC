@@ -300,10 +300,10 @@ public function count_loggedin()
 		return $res;
 	}
 	
-public function getUserQuestions($id){
+public function getUserQuestions($user){
 		$this->db->select()
 		->from('question')
-		->where('userID = ?')
+		->where('user = ?')
 		->execute([$id]);
 		$res = $this->db->fetchInto($this);
 		return $res;

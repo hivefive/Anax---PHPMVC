@@ -160,7 +160,7 @@ class Question extends \Anax\MVC\CDatabaseModel {
 		$this->db->execute($sql);
 	}
 	public function acceptAnswer($id, $acronym, $questionID) {
-		if ($_SESSION['user']->acronym == $acronym) {
+		if ($_SESSION['acronym'] == $acronym) {
 		$sql = "UPDATE test_answer SET accepted=? WHERE id=?;";
 		$params = array(1, $id);
 		$this->db->execute($sql, $params);
