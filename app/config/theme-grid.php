@@ -36,7 +36,7 @@ return [
         'style' => null,
 
         // Favicon
-        'favicon' => 'favicon.ico',
+        'favicon' => 'designlogo.ico',
 
         // Path to modernizr or null to disable
         'modernizr' => 'js/modernizr.js',

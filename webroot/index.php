@@ -116,6 +116,18 @@ $app->router->add('tags', function() use ($app) {
 		]);
 		
 
+});
+
+$app->router->add('about', function() use ($app) {
+    
+	$content = $app->fileContent->get('about.md');
+    $content = $app->textFilter->doFilter($content, 'shortcode, markdown');
+	
+    $app->views->add('me/page', [
+        'content' => $content,
+    ],'main');
+		
+
 }); 
 
 require_once('setup.php');

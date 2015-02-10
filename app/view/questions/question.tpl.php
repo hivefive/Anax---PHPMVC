@@ -21,7 +21,7 @@ $color = "red";
 <p><a class="left" href="<?=$this->url->create('questions/downVote/' . $id) ?>"><i style="color: red;" class="fa fa-chevron-down red"></i></a></p>
 </div>
 <?php
-$tags = explode("\n", str_replace(' ', '', $question->tags));
+$tags = explode(" ", $question->tags);
 ?>
 <div class="tags">
 <?php foreach($tags as $tag): ?>

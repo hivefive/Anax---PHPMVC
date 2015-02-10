@@ -304,8 +304,9 @@ class UsersController implements \Anax\DI\IInjectionAware
 			]);
 			return;
 			}
+		
         $user = $this->users->find($id);
-        
+        if ($_SESSION['userId'] == $user->id) {
         $this->di->session();
         $form = new \Anax\Users\CFormEditUser($user->acronym,$user->name,$user->email,$user->password,$user->id);
         $form->setDI($this->di);
@@ -317,6 +318,14 @@ class UsersController implements \Anax\DI\IInjectionAware
             'title' => 'Updatering av ' . $user->acronym,
             'content' => $form->getHTML(),
         ]);
+		}
+		else {
+			$this->theme->setTitle("Login");
+			$this->views->add('users/notLoggedIn', [
+			'content' => '<h1>Trying to edit another user. Login to the user you want to edit</h1>',
+			]);
+			return;
+		}
     }
     
     /**

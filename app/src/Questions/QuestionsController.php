@@ -171,18 +171,16 @@ class QuestionsController implements \Anax\DI\IInjectionAware
 		$question['ip'] = $this->request->getServer('REMOTE_ADDR');
 		$question['title'] = $_SESSION['form-save']['title']['value'];
 		$question['userID'] = $_SESSION['form-save']['userID']['value'];
-		// $question['nbrOfAnswers'] = $_SESSION['form-save']['nbrOfAnswers']['value'];
 		$tags = explode("\n", str_replace(' ', '', $question['tags']));
-	foreach($tags as $tag) {
+		foreach($tags as $tag) {
 		$tag = trim(preg_replace('/\s+/', ' ', $tag));
 		$this->questions->saveTag($tag);
 	}
-	// $this->question->saveTag('niwhede');
-	// session_unset($_SESSION['form-save']);
+
 	unset($_SESSION['form-save']);
 	$this->questions->save($question);
 	// Route to prefered controller function
-	$url = $this->url->create('question/view');
+	$url = $this->url->create('questions/view');
 	$this->response->redirect($url);
 	} else if ($status === false) {
 	// What to do when form could not be processed?
@@ -426,10 +424,10 @@ class QuestionsController implements \Anax\DI\IInjectionAware
 	public function tagIdAction($id = null) 
 	{
 	
-		 $questions = $this->questions->findAll();
+		$questions = $this->questions->findAll();
 		$list = array();
 		foreach($questions as $question) {
-		$tags = explode("\n", str_replace(' ', '', $question->tags));
+		$tags = explode(" ", $question->tags);
 		foreach($tags as $tag) {
 		$tag = trim(preg_replace('/\s+/', ' ', $tag));
 		if ($tag == $id) {

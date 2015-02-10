@@ -77,7 +77,7 @@ class CFormUser extends \Mos\HTMLForm\CForm
 			'created' => $now,
 			'active' => $now,
 		]);
-	$this->redirectTo('users/profile/'. $user->id);
+	$this->redirectTo('');
 	return true;
 	}
 	/**

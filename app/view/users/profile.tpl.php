@@ -44,3 +44,5 @@ Kommentar till <a href="<?= $this->url->create('view/viewComment'.'/'.$c->commen
 Svar till <a href="<?= $this->url->create('view/viewComment'.'/'.$c->comment_id .'/'. $c->user_id) ?>">denna fråga</a><br/>
 <?php endforeach; ?>
 <?php endif; ?>
+<?php $url = $this->url->create('users/update/' . $user->id); ?>
+<?="<p><a href='$url'>Update</a></p>"; ?>

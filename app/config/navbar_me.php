@@ -36,6 +36,12 @@ return [
             'title' => 'All tags'
         ],
 		
+		'about' => [
+            'text'  =>'<i class="fa fa-rocket"></i> About',
+            'url'   => 'about',
+            'title' => 'About'
+        ],
+		
 		
 	],
  
