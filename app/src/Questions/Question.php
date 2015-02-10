@@ -279,13 +279,13 @@ class Question extends \Anax\MVC\CDatabaseModel {
 		$res = $this->db->executeFetchAll($sql);
 		return $res;
 	}
-	public function sortAnswersByVotes() {
+	public function sortAnswersByVotes($id) {
 		$sql ="SELECT * FROM test_answer WHERE questionID = ? ORDER BY votes DESC;";
 		$params = array($id);
 		$res = $this->db->executeFetchAll($sql, $params);
 		return $res;
 	}
-	public function sortAnswersByDate() {
+	public function sortAnswersByDate($id) {
 		$sql ="SELECT * FROM test_answer WHERE questionID = ? ORDER BY id DESC;";
 		$params = array($id);
 		$res = $this->db->executeFetchAll($sql, $params);

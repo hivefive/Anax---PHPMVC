@@ -617,47 +617,7 @@ class QuestionsController implements \Anax\DI\IInjectionAware
 		$url = $this->url->create('questions/id/' . $questionID);
 		$this->response->redirect($url);
 	}
-	public function sortAction($option) {
-		if ($option == "votes") {
-			$all = $this->questions->sortByVotes();
-			} else if ($option == "nbrOfAnswers") {
-			$all = $this->questions->sortbyNbrOfAnswers();
-			} else if ($option == "date") {
-			$all = $this->questions->sortByDate();
-			}
-			$this->views->add('questions/view', [
-			'question' => $all,
-			]);
-		}
-	public function sortAnswersAction($id = null, $option = null) {
-		if ($option == "votes") {
-			$all = $this->questions->sortAnswersByVotes($id);
-			} else if ($option == "date") {
-			$all = $this->questions->sortAnswersByDate($id);
-			}
-			$question = $this->questions->find($id);
-			$this->theme->setTitle("Question");
-			$answers = $question->getAnswers($id);
-			$contributors = $question->getContributor();
-			$commentators = $question->getCommentators();
-			$comments = $question->getComments($id);
-			$commentsOnAnswers = $question->getCommentsOnAnswers($id);
-			if (!empty($answers)) {
-			$hasAcceptedAnswer = $question->hasAcceptedAnswer($id);
-			} else {
-			$hasAcceptedAnswer = array();
-			}
-			$this->views->add('questions/question', [
-				'id' => $id,
-				'question' => $question,
-				'answers' => $all,
-				'contributors' => $contributors,
-				'comments' => $comments,
-				'commentators' => $commentators,
-				'commentsOnAnswers' => $commentsOnAnswers,
-				'hasAcceptedAnswer' => $hasAcceptedAnswer,
-		]);
-	}
+
 	
 	public function commentOnAnswerAction($id = null, $questionID = NULL) {
       if (!isset($_SESSION['userId'])) {
@@ -705,4 +665,46 @@ class QuestionsController implements \Anax\DI\IInjectionAware
             'form' => $form->getHtml(),
             ]);
     }
+	
+	 public function sortAction($option) {
+		if ($option == "votes") {
+		$all = $this->questions->sortByVotes();
+		} else if ($option == "nbrOfAnswers") {
+		$all = $this->questions->sortbyNbrOfAnswers();
+		} else if ($option == "date") {
+		$all = $this->questions->sortByDate();
+		}
+		$this->views->add('questions/view', [
+		'question' => $all,
+		]);
+	}
+	public function sortAnswersAction($id = null, $option = null) {
+		if ($option == "votes") {
+			$all = $this->questions->sortAnswersByVotes($id);
+			} else if ($option == "date") {
+			$all = $this->questions->sortAnswersByDate($id);
+			}
+			$question = $this->questions->find($id);
+			$this->theme->setTitle("Question");
+			$answers = $question->getAnswers($id);
+			$contributors = $question->getContributor();
+			$commentators = $question->getCommentators();
+			$comments = $question->getComments($id);
+			$commentsOnAnswers = $question->getCommentsOnAnswers($id);
+		if (!empty($answers)) {
+			$hasAcceptedAnswer = $question->hasAcceptedAnswer($id);
+			} else {
+			$hasAcceptedAnswer = array();
+			}
+			$this->views->add('questions/question', [
+				'id' => $id,
+				'question' => $question,
+				'answers' => $all,
+				'contributors' => $contributors,
+				'comments' => $comments,
+				'commentators' => $commentators,
+				'commentsOnAnswers' => $commentsOnAnswers,
+				'hasAcceptedAnswer' => $hasAcceptedAnswer,
+		]);
+	}
 }
